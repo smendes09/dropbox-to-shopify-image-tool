@@ -6,7 +6,7 @@ from io import BytesIO
 
 st.set_page_config(
     page_title="Dropbox to Shopify Image Link Generator",
-    page_icon="favicon-32x32.png",  # Make sure this file is in the root directory of your project
+    page_icon="favicon.png",  # Make sure this file is in the root directory of your project
     layout="wide"
 )
 
