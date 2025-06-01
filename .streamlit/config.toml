@@ -1,0 +1,16 @@
+[theme]
+base = "light"
+primaryColor = "#000000"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f6f6f6"
+textColor = "#000000"
+font = "sans serif"
+
+[server]
+headless = true
+
+[client]
+showSidebarNavigation = true
+
+[general]
+title = "Dropbox to Shopify Image Link Tool"
