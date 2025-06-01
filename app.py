@@ -3,6 +3,7 @@ import dropbox
 import pandas as pd
 import re
 from io import BytesIO
+from PIL import Image
 
 st.set_page_config(
     page_title="Dropbox to Shopify Image Link Generator",
@@ -75,7 +76,7 @@ st.write("Paste SKUs and Dropbox shared links from Excel into separate boxes. Ge
 st.sidebar.markdown(
     """
     <div style='margin-bottom: 2rem;'>
-        <img src="Logo-Black.svg" width="160">
+        <img src="Logo-Black@2x.png" width="160">
     </div>
     """,
     unsafe_allow_html=True
