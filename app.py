@@ -29,7 +29,8 @@ html, body, [class*='css'] {
             p {font-family: 'Arimo', sans-serif!important;}
             #em-dropbox-link-processor-em-bulk-convert {font-style: italic!important;}
             .st-bw {border: 1px solid #eee!important;}
-            .stTextInput {background-color: #F4F1EC;}
+            .st-emotion-cache-1fmfajh {background-color: #fff;}
+            .st-emotion-cache-17estbc {background-color: #fff;}
            
             
 
@@ -77,7 +78,7 @@ st.write("Paste SKUs and Dropbox shared links from Excel into separate boxes. Ge
 st.sidebar.markdown(
     """
     <div style='margin-bottom: 2rem;'>
-        <img src="Logo-Black@2x.png" width="160">
+        <img src="logo-black.png" width="160">
     </div>
     """,
     unsafe_allow_html=True
