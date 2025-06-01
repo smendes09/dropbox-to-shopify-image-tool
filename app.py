@@ -6,6 +6,15 @@ from io import BytesIO
 from PIL import Image
 
 st.set_page_config(
+import os
+
+# Diagnostic: Check if logo file exists
+if os.path.exists("logo-black.png"):
+    logo = Image.open("logo-black.png")
+    st.sidebar.image(logo, width=160)
+else:
+    st.sidebar.error("❌ Logo file not found.")
+
     page_title="Dropbox to Shopify Image Link Generator",
     page_icon="favicon.png",  # Make sure this file is in the root directory of your project
     layout="wide"
@@ -29,8 +38,6 @@ html, body, [class*='css'] {
             p {font-family: 'Arimo', sans-serif!important;}
             #em-dropbox-link-processor-em-bulk-convert {font-style: italic!important;}
             .st-bw {border: 1px solid #eee!important;}
-            .st-emotion-cache-1fmfajh {background-color: #fff;}
-            .st-emotion-cache-17estbc {background-color: #fff;}
            
             
 
@@ -57,7 +64,7 @@ h1, h2, h3 {
     border-radius: 6px;
     font-weight: bold;
 }
-.stDataFrame, .stTextArea, .stSelectbox, .stFileUploader {
+.stDataFrame, .stTextInput, .stTextArea, .stSelectbox, .stFileUploader {
     background-color: #ffffff;
     color: #000000;
 }
