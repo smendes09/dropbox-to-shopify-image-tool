@@ -29,6 +29,7 @@ html, body, [class*='css'] {
             p {font-family: 'Arimo', sans-serif!important;}
             #em-dropbox-link-processor-em-bulk-convert {font-style: italic!important;}
             .st-bw {border: 1px solid #eee!important;}
+            .stTextInput {background-color: #F4F1EC;}
            
             
 
@@ -55,7 +56,7 @@ h1, h2, h3 {
     border-radius: 6px;
     font-weight: bold;
 }
-.stDataFrame, .stTextInput, .stTextArea, .stSelectbox, .stFileUploader {
+.stDataFrame, .stTextArea, .stSelectbox, .stFileUploader {
     background-color: #ffffff;
     color: #000000;
 }
