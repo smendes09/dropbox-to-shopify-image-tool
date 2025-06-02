@@ -72,9 +72,6 @@ div[data-testid='stMarkdownContainer'] > div {
 
 
 st.title("Dropbox Link Processor (Bulk Convert)")
-st.markdown("---")
-st.markdown("### Step 1: Input SKUs and Dropbox Shared Links")
-st.write("Paste SKUs and Dropbox shared links from Excel into separate boxes. Generate shareable links for Matrixify export.")
 st.write("Paste SKUs and Dropbox shared links from Excel into separate boxes. Generate shareable links for Matrixify export.")
 
 
@@ -90,7 +87,6 @@ st.sidebar.markdown(
 
 
 # --- Dropbox API Setup ---
-st.sidebar.markdown("### Authentication")
 if 'access_token' not in st.session_state:
     with st.sidebar.form(key="token_form"):
         token_input = st.text_input("Enter your Dropbox API token", type="password")
@@ -106,8 +102,6 @@ access_token = st.session_state['access_token']
 dbx = dropbox.Dropbox(access_token)
 
 # --- Start New Batch ---
-st.sidebar.markdown("---")
-st.sidebar.markdown("### Batch Controls")
 if st.sidebar.button("🔁 Start New Batch"):
     for key in ['sku_input', 'link_input', 'converted_data', 'export_result', 'show_conversion_success', 'last_export_df', 'export_log', 'error_log', 'export_ready']:
         if key in st.session_state:
@@ -116,7 +110,6 @@ if st.sidebar.button("🔁 Start New Batch"):
 
 # --- Step 1: Input SKUs and Dropbox Links ---
 st.markdown("---")
-st.markdown("### Step 1: Input SKUs and Dropbox Shared Links")
 st.subheader("1. Paste SKUs and Dropbox Shared Links")
 
 if 'sku_input' not in st.session_state:
@@ -136,7 +129,6 @@ if len(sku_list) != len(link_list):
 
 # --- Convert to Folder Paths ---
 st.markdown("---")
-st.markdown("### Step 2: Convert Dropbox Links to Folder Paths")
 if 'converted_data' not in st.session_state:
     st.session_state.converted_data = []
 if 'show_conversion_success' not in st.session_state:
@@ -165,9 +157,8 @@ if st.button("Convert to Folder Paths"):
 if st.session_state.get("show_conversion_success", False):
     st.success("✅ Dropbox links have been successfully converted to folder paths.")
 
-# --- Step 3: Generate Image Links ---
+# --- Step 2: Generate Image Links ---
 st.markdown("---")
-st.markdown("### Step 3: Generate Image Links by SKU and Folder Path")
 st.subheader("2. Generate Image Links by SKU + Folder Path")
 
 def natural_sort_key(file_name):
@@ -236,8 +227,6 @@ if st.button("Generate and Export Image Links"):
         st.session_state["export_ready"] = True
 
 # Display log and download section after export (or persisted via session)
-st.markdown("---")
-st.markdown("### Export Results")
 if st.session_state.get("export_ready", False):
     if "export_log" in st.session_state:
         html_summary = "".join(st.session_state["export_log"])
@@ -260,7 +249,6 @@ if st.session_state.get("export_ready", False):
             for err in st.session_state["error_log"]:
                 st.error(err)
 # --- Version Display in Sidebar ---
-st.sidebar.markdown("---")
 st.sidebar.markdown(
     """
     <div style='position: fixed; bottom: 1rem; left: 1rem; font-size: 12px; color: #666;'>
