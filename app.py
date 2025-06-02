@@ -242,11 +242,5 @@ if st.session_state.get("export_ready", False):
             for err in st.session_state["error_log"]:
                 st.error(err)
 # --- Version Display in Sidebar ---
-st.sidebar.markdown(
-    """
-    <div style='position: fixed; bottom: 1rem; left: 1rem; font-size: 12px; color: #666;'>
-        Version 1.0
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.sidebar.markdown("---")
+st.sidebar.markdown("**Version 1.0**")
