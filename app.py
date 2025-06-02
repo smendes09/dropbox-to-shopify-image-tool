@@ -76,14 +76,7 @@ st.write("Paste SKUs and Dropbox shared links from Excel into separate boxes. Ge
 
 
 # --- Logo Display in Sidebar ---
-st.sidebar.markdown(
-    """
-    <div style='margin-bottom: 2rem;'>
-        <img src="logo-black.png" width="160">
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.sidebar.image("logo-black.png", width=160)
 
 
 # --- Dropbox API Setup ---
