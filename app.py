@@ -240,6 +240,7 @@ if st.session_state.get("export_ready", False):
 
     if "last_export_df" in st.session_state:
         df = st.session_state["last_export_df"]
+        st.markdown("---")
         st.subheader("📊 Preview Table")
         st.dataframe(df)
         output = BytesIO()
