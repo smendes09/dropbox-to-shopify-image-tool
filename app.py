@@ -79,6 +79,10 @@ st.write("Paste SKUs and Dropbox shared links from Excel into separate boxes. Ge
 st.sidebar.image("logo-black.png", width=160)
 
 
+st.sidebar.image("logo-black.png", width=160)
+st.sidebar.markdown("---")
+st.sidebar.markdown("**Version 1.0**")
+
 # --- Dropbox API Setup ---
 if 'access_token' not in st.session_state:
     with st.sidebar.form(key="token_form"):
@@ -242,5 +246,4 @@ if st.session_state.get("export_ready", False):
             for err in st.session_state["error_log"]:
                 st.error(err)
 # --- Version Display in Sidebar ---
-st.sidebar.markdown("---")
-st.sidebar.markdown("**Version 1.0**")
+
