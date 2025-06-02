@@ -77,7 +77,7 @@ div[data-testid='stMarkdownContainer'] > div {
 """, unsafe_allow_html=True)
 
 
-st.markdown("<h1><em>Dropbox Link</em> Processor (Bulk Convert)</h1>", unsafe_allow_html=True)
+st.title("Dropbox Link Processor (Bulk Convert)")
 st.write("Paste SKUs and Dropbox shared links from Excel into separate boxes. Generate shareable links for Matrixify export.")
 
 
@@ -245,6 +245,8 @@ if st.session_state.get("export_ready", False):
         output = BytesIO()
         df.to_excel(output, index=False)
         st.success("✅ Excel generated with SKU + image links!")
+        st.markdown("---")
+        st.subheader("3. Download Excel")
         st.download_button("⬇ Download Excel File", data=output.getvalue(), file_name="dropbox_links_with_skus.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 
     if st.session_state.get("error_log"):
