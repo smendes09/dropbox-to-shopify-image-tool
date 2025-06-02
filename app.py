@@ -85,7 +85,7 @@ st.write("Paste SKUs and Dropbox shared links from Excel into separate boxes. Ge
 
 
 st.sidebar.image("logo-black.png", width=160)
-st.sidebar.markdown("<div style='font-size: 12px; color: #666; margin-top: -10px;'>Version 1.0</div>", unsafe_allow_html=True)
+st.sidebar.markdown("<div style='font-size: 12px; color: #666; margin-top: -10px;'><em>Version</em> 1.0</div>", unsafe_allow_html=True)
 st.sidebar.markdown("---")
 
 
