@@ -32,14 +32,14 @@ html, body, [class*='css'] {
             .st-emotion-cache-1fmfajh {background-color: #fff;}
             .st-emotion-cache-17estbc {background-color: #fff;}
             .stButton > button {color: #fff!important;}
-            #1-paste-skus-and-dropbox-shared-links {font-family: 'Arimo', sans-serif!important;}
-           
             
 
-h1, h2, h3 {
+h1, h2, {
     font-family: 'Playfair Display', serif!important;
     color: #000000;
 }
+            
+h3 {font-family: 'Arimo', sans-serif!important;}            
 .stButton > button {
     background-color: #000000;
     color: #ffffff;
