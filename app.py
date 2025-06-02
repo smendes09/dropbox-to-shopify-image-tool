@@ -77,7 +77,7 @@ div[data-testid='stMarkdownContainer'] > div {
 """, unsafe_allow_html=True)
 
 
-st.title("Dropbox Link Processor (Bulk Convert)")
+st.title("<em>Dropbox Link</em> Processor (Bulk Convert)")
 st.write("Paste SKUs and Dropbox shared links from Excel into separate boxes. Generate shareable links for Matrixify export.")
 
 
