@@ -32,6 +32,7 @@ html, body, [class*='css'] {
             .st-emotion-cache-1fmfajh {background-color: #fff;}
             .st-emotion-cache-17estbc {background-color: #fff;}
             .stButton > button {color: #fff!important;}
+            #1-paste-skus-and-dropbox-shared-links {font-family: 'Arimo', sans-serif!important;}
            
             
 
@@ -77,8 +78,13 @@ st.write("Paste SKUs and Dropbox shared links from Excel into separate boxes. Ge
 
 # --- Logo Display in Sidebar ---
 st.sidebar.image("logo-black.png", width=160)
+st.sidebar.markdown("<div style='font-size: 12px; color: #666; margin-top: -10px;'>Version 1.0</div>", unsafe_allow_html=True)
+st.sidebar.markdown("---")
 
 
+st.sidebar.image("logo-black.png", width=160)
+st.sidebar.markdown("<div style='font-size: 12px; color: #666; margin-top: -10px;'>Version 1.0</div>", unsafe_allow_html=True)
+st.sidebar.markdown("---")
 st.sidebar.markdown("---")
 st.sidebar.markdown("**Version 1.0**")
 
