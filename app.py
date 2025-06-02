@@ -74,7 +74,7 @@ div[data-testid='stMarkdownContainer'] > div {
 st.title("Dropbox Link Processor (Bulk Convert)")
 st.markdown("---")
 st.markdown("### Step 1: Input SKUs and Dropbox Shared Links")
-st.write("Paste SKUs and Dropbox shared links from Excel into separate boxes. Generate shareable links for Matrixify export.")")
+st.write("Paste SKUs and Dropbox shared links from Excel into separate boxes. Generate shareable links for Matrixify export.")
 st.write("Paste SKUs and Dropbox shared links from Excel into separate boxes. Generate shareable links for Matrixify export.")
 
 
