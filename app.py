@@ -132,7 +132,7 @@ if 'converted_data' not in st.session_state:
 if 'show_conversion_success' not in st.session_state:
     st.session_state.show_conversion_success = False
 
-if st.button("🔄 Convert to Folder Paths"):
+if st.button("Convert to Folder Paths"):
     converted = []
     progress = st.progress(0)
     status = st.empty()
@@ -194,7 +194,7 @@ def list_files_recursive(folder, error_log):
         error_log.append(f"Failed to read folder '{folder}': {e}")
     return links, file_count
 
-if st.button("📤 Generate and Export Image Links"):
+if st.button("Generate and Export Image Links"):
     result = []
     export_log = []
     error_log = []
