@@ -33,6 +33,7 @@ html, body, [class*='css'] {
             .st-emotion-cache-17estbc {background-color: #fff;}
             .stButton > button {color: #fff!important;}
             #1-paste-skus-and-dropbox-shared-links {font-family: 'Arimo', sans-serif!important;}
+            .st-emotion-cache-10c9vv9 {text-transform: uppercase; font-size: 12px !important;}
            
             
 
