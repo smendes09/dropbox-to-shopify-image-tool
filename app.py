@@ -39,7 +39,8 @@ h1, h2, {
     color: #000000;
 }
             
-h3 {font-family: 'Arimo', sans-serif!important;}            
+h3 {font-family: 'Arimo', sans-serif!important;}
+            
 .stButton > button {
     background-color: #000000;
     color: #ffffff;
