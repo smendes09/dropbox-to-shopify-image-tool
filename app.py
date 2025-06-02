@@ -33,14 +33,13 @@ html, body, [class*='css'] {
             .st-emotion-cache-17estbc {background-color: #fff;}
             .stButton > button {color: #fff!important;}
             h3 {font-family: 'Arimo', sans-serif!important;}
+           
             
 
 h1, h2, {
     font-family: 'Playfair Display', serif!important;
     color: #000000;
 }
-        
-            
 .stButton > button {
     background-color: #000000;
     color: #ffffff;
@@ -83,6 +82,7 @@ st.write("Paste SKUs and Dropbox shared links from Excel into separate boxes. Ge
 st.sidebar.image("logo-black.png", width=160)
 st.sidebar.markdown("<div style='font-size: 12px; color: #666; margin-top: -10px;'>Version 1.0</div>", unsafe_allow_html=True)
 st.sidebar.markdown("---")
+
 
 # --- Dropbox API Setup ---
 if 'access_token' not in st.session_state:
