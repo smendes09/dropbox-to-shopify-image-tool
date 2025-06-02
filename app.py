@@ -31,6 +31,7 @@ html, body, [class*='css'] {
             .st-bw {border: 1px solid #eee!important;}
             .st-emotion-cache-1fmfajh {background-color: #fff;}
             .st-emotion-cache-17estbc {background-color: #fff;}
+            .stButton > button {color: #fff!important;}
            
             
 
