@@ -208,9 +208,21 @@ if st.button("Generate and Export Image Links"):
     progress = st.progress(0)
     status = st.empty()
 
+    import time
+    start_time = time.time()
+
     for idx, folder in enumerate(folders):
         sku = sku_list[idx]
-        status.info(f"Processing {sku} ({idx+1}/{len(folders)})")
+
+        elapsed = time.time() - start_time
+        avg_time = elapsed / (idx + 1)
+        est_remaining = avg_time * (len(folders) - idx - 1)
+
+        elapsed_fmt = time.strftime('%M:%S', time.gmtime(elapsed))
+        remaining_fmt = time.strftime('%M:%S', time.gmtime(est_remaining))
+
+        status.info(f"⏱️ Processing {sku} ({idx+1}/{len(folders)})\nElapsed: {elapsed_fmt} — Est. remaining: {remaining_fmt}")
+
         image_links, count = list_files_recursive(folder, error_log)
         if image_links:
             result.append([sku, " ; ".join(image_links)])
@@ -226,7 +238,7 @@ if st.button("Generate and Export Image Links"):
         st.session_state["export_log"] = export_log
     if result:
         df = pd.DataFrame(result, columns=["Variant SKU", "Image Src"])
-        df["Image Command"] = "ALT"
+        df["Image Command"] = "REPLACE"
         st.session_state["last_export_df"] = df
         st.session_state["export_ready"] = True
 
