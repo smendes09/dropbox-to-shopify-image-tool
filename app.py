@@ -156,6 +156,10 @@ if st.button("Convert to Folder Paths"):
     st.session_state.show_conversion_success = bool(converted)
     progress.empty()
     status.empty()
+    total_time = time.time() - start_time
+    total_time_fmt = time.strftime('%M:%S', time.gmtime(total_time))
+    st.success(f"✅ Completed! Total processing time: {total_time_fmt}")
+
 
 if st.session_state.get("show_conversion_success", False):
     st.success("✅ Dropbox links have been successfully converted to folder paths.")
@@ -233,12 +237,16 @@ if st.button("Generate and Export Image Links"):
 
     progress.empty()
     status.empty()
+    total_time = time.time() - start_time
+    total_time_fmt = time.strftime('%M:%S', time.gmtime(total_time))
+    st.success(f"✅ Completed! Total processing time: {total_time_fmt}")
+
 
     if export_log:
         st.session_state["export_log"] = export_log
     if result:
         df = pd.DataFrame(result, columns=["Variant SKU", "Image Src"])
-        df["Image Command"] = "REPLACE"
+        df["Image Command"] = "ALT"
         st.session_state["last_export_df"] = df
         st.session_state["export_ready"] = True
 
