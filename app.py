@@ -157,6 +157,7 @@ if st.button("Convert to Folder Paths"):
     st.session_state.converted_data = converted
     st.session_state.show_conversion_success = bool(converted)
     
+    
     progress.empty()
     status.empty()
 
@@ -166,6 +167,10 @@ if st.button("Convert to Folder Paths"):
 
     end_time = datetime.now()
     timestamp_str = end_time.strftime("%Y-%m-%d %H:%M:%S")
+    st.info(f"📅 Completed at: {timestamp_str}")
+
+
+
     st.info(f"📅 Completed at: {timestamp_str}")
 
 
@@ -245,6 +250,7 @@ if st.button("Generate and Export Image Links"):
         progress.progress((idx + 1) / len(folders))
 
     
+    
     progress.empty()
     status.empty()
 
@@ -254,6 +260,10 @@ if st.button("Generate and Export Image Links"):
 
     end_time = datetime.now()
     timestamp_str = end_time.strftime("%Y-%m-%d %H:%M:%S")
+    st.info(f"📅 Completed at: {timestamp_str}")
+
+
+
     st.info(f"📅 Completed at: {timestamp_str}")
 
 
