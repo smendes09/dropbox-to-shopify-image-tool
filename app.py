@@ -200,7 +200,33 @@ def list_files_recursive(folder, error_log):
         error_log.append(f"Failed to read folder '{folder}': {e}")
     return links, file_count
 
-if st.button("Generate and Export Image Links"):
+
+cols = st.columns([2, 3])
+
+with cols[0]:
+    run_export = st.button("Generate and Export Image Links")
+
+with cols[1]:
+    if st.session_state.get("process_time_display"):
+        st.markdown(
+            f"""
+            <div style="
+                background-color: #eafbea;
+                border-left: 4px solid #34a853;
+                padding: 8px 12px;
+                font-size: 14px;
+                font-weight: bold;
+                color: #1a1a1a;
+                border-radius: 4px;
+                display: inline-block;">
+                ✅ {{st.session_state['process_time_display']}}
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+if run_export:
+
     result = []
     export_log = []
     error_log = []
@@ -238,9 +264,14 @@ if st.button("Generate and Export Image Links"):
         st.session_state["export_log"] = export_log
     if result:
         df = pd.DataFrame(result, columns=["Variant SKU", "Image Src"])
-        df["Image Command"] = "ALT"
+        df["Image Command"] = "REPLACE"
         st.session_state["last_export_df"] = df
         st.session_state["export_ready"] = True
+        total_time = time.time() - start_time
+        minutes = int(total_time // 60)
+        seconds = int(total_time % 60)
+        st.session_state['process_time_display'] = f"Process completed in {minutes} minutes {seconds} seconds."
+
 
 # Display log and download section after export (or persisted via session)
 if st.session_state.get("export_ready", False):
