@@ -225,7 +225,8 @@ if st.button("Generate and Export Image Links"):
     if export_log:
         st.session_state["export_log"] = export_log
     if result:
-        df = pd.DataFrame(result, columns=["SKU", "All Image Links"])
+        df = pd.DataFrame(result, columns=["Variant SKU", "Image Src"])
+        df["Image Command"] = "ALT"
         st.session_state["last_export_df"] = df
         st.session_state["export_ready"] = True
 
