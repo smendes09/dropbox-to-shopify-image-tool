@@ -183,7 +183,7 @@ def list_files_recursive(folder, error_log):
     try:
         res = dbx.files_list_folder(folder)
         files = sorted(
-            [e for e in res.entries if isinstance(e, dropbox.files.FileMetadata) and not e.name.lower().endswith(('.psd', '.png'))],
+            [e for e in res.entries if isinstance(e, dropbox.files.FileMetadata) and not e.name.lower().endswith(('.psd', '.png', '.jpg'))],
             key=lambda x: natural_sort_key(x.name)
         )
         for f in files:

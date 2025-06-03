@@ -6,7 +6,7 @@ This internal tool allows you to generate direct image URLs from Dropbox folders
 
 ## 🚀 Hosted App
 
-Access the app here: [Your Streamlit App Link]  
+Access the app here: [https://dropbox-to-shopify-image-tool-iyzfew6f7bkfky7wv9qjww.streamlit.app/](https://dropbox-to-shopify-image-tool-iyzfew6f7bkfky7wv9qjww.streamlit.app/)
 > (Replace this with the Streamlit Cloud URL after deployment)
 
 ---
@@ -14,7 +14,7 @@ Access the app here: [Your Streamlit App Link]
 ## 🧩 Features
 
 - ✅ Convert Dropbox links into case-sensitive folder paths
-- ✅ Generate public image links (excluding PSD/PNG files)
+- ✅ Generate public image links (excluding PSD/PNG/JPG files)
 - ✅ Pair image links with SKU codes
 - ✅ Preview results and download Excel output
 - ✅ Built-in reset and progress indicators
