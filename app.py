@@ -2,6 +2,8 @@ import streamlit as st
 import dropbox
 import pandas as pd
 import re
+from datetime import datetime
+import time
 from io import BytesIO
 from PIL import Image
 
@@ -159,6 +161,10 @@ if st.button("Convert to Folder Paths"):
     total_time = time.time() - start_time
     total_time_fmt = time.strftime('%M:%S', time.gmtime(total_time))
     st.success(f"✅ Completed! Total processing time: {total_time_fmt}")
+    end_time = datetime.now()
+    timestamp_str = end_time.strftime("%Y-%m-%d %H:%M:%S")
+    st.info(f"📅 Completed at: {timestamp_str}")
+
 
 
 if st.session_state.get("show_conversion_success", False):
@@ -240,6 +246,10 @@ if st.button("Generate and Export Image Links"):
     total_time = time.time() - start_time
     total_time_fmt = time.strftime('%M:%S', time.gmtime(total_time))
     st.success(f"✅ Completed! Total processing time: {total_time_fmt}")
+    end_time = datetime.now()
+    timestamp_str = end_time.strftime("%Y-%m-%d %H:%M:%S")
+    st.info(f"📅 Completed at: {timestamp_str}")
+
 
 
     if export_log:
