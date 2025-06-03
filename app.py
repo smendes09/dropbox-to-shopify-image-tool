@@ -156,11 +156,14 @@ if st.button("Convert to Folder Paths"):
         status.info(f"Processing link {idx + 1} of {len(link_list)}")
     st.session_state.converted_data = converted
     st.session_state.show_conversion_success = bool(converted)
+    
     progress.empty()
     status.empty()
+
     total_time = time.time() - start_time
     total_time_fmt = time.strftime('%M:%S', time.gmtime(total_time))
     st.success(f"✅ Completed! Total processing time: {total_time_fmt}")
+
     end_time = datetime.now()
     timestamp_str = end_time.strftime("%Y-%m-%d %H:%M:%S")
     st.info(f"📅 Completed at: {timestamp_str}")
@@ -241,11 +244,14 @@ if st.button("Generate and Export Image Links"):
             export_log.append(f"<div style='color: orange;'>⚠️ <strong>{sku}</strong> — No valid images found.</div>")
         progress.progress((idx + 1) / len(folders))
 
+    
     progress.empty()
     status.empty()
+
     total_time = time.time() - start_time
     total_time_fmt = time.strftime('%M:%S', time.gmtime(total_time))
     st.success(f"✅ Completed! Total processing time: {total_time_fmt}")
+
     end_time = datetime.now()
     timestamp_str = end_time.strftime("%Y-%m-%d %H:%M:%S")
     st.info(f"📅 Completed at: {timestamp_str}")
@@ -286,4 +292,3 @@ if st.session_state.get("export_ready", False):
             for err in st.session_state["error_log"]:
                 st.error(err)
 # --- Version Display in Sidebar ---
-
