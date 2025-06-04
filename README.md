@@ -13,27 +13,29 @@ Access the app here: [https://dropbox-to-shopify-image-tool-iyzfew6f7bkfky7wv9qj
 
 ## 🧩 Features
 
-- ✅ Convert Dropbox links into case-sensitive folder paths
-- ✅ Generate public image links (excluding PSD/PNG/JPG files)
-- ✅ Pair image links with SKU codes
-- ✅ Preview results and download Excel output
-- ✅ Built-in reset and progress indicators
+- ✅ Paste tab-separated SKU + Dropbox link pairs from Excel
+- ✅ Convert Dropbox shared links into case-sensitive folder paths
+- ✅ Automatically generate public image links (excluding PSD/PNG/JPG files)
+- ✅ Export clean Excel file ready for Matrixify
+- ✅ Built-in success indicators, error logging, and batch reset
 
 ---
 
 ## 🧑‍💻 How to Use
 
 1. **Paste your Dropbox API token** in the sidebar and click **Submit Token**
-2. **Paste SKUs** into the SKU field (one per line)
-3. **Paste Dropbox shared folder links** (matching order)
-4. Click **Convert to Folder Paths**
-5. Click **Generate Image Links**
-6. Preview the table and click **Download Excel File**
-7. Click **Start New Batch** to begin again
+2. **Copy both SKU and Dropbox shared links from Excel** (two adjacent columns)
+3. **Paste into the unified input field** (each line = SKU<TAB>Dropbox Link)
+4. Click **Process & Export All** to begin
+5. View the conversion summary and preview table
+6. Click **Download Excel File** to export the data
+7. Click **Start New Batch** to clear everything and begin again
+
+> 💡 *Tip: No need to manually add tabs — just copy both columns directly from Excel or Google Sheets.*
 
 ---
 
-## 🖥️ Local Development (Optional)
+## 💻 Local Development (Optional)
 
 Clone the repo and run the app locally:
 
@@ -51,7 +53,8 @@ streamlit run app.py
 ```
 dropbox-to-shopify-image-tool/
 ├── app.py               # Streamlit app script
-├── Logo-Black.svg       # Company logo for branding
+├── favicon.png          # Favicon used in browser tab
+├── logo-black.png       # Company logo for branding
 ├── requirements.txt     # Python dependencies
 └── README.md            # Instructions for usage
 ```
@@ -69,4 +72,4 @@ To generate your token:
 
 ## 💬 Support
 
-For questions or feedback, contact the Digital Experience Manager.
+For questions or feedback, contact the Digital Experience Manager or reach out via the #automation-support Slack channel.

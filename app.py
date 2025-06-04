@@ -106,10 +106,16 @@ dbx = dropbox.Dropbox(access_token)
 
 # --- Start New Batch ---
 if st.sidebar.button("🔁 Start New Batch"):
-    for key in ['sku_input', 'link_input', 'converted_data', 'export_result', 'show_conversion_success', 'last_export_df', 'export_log', 'error_log', 'export_ready']:
+    for key in [
+        'sku_input', 'link_input', 'combined_input', 'converted_data', 'export_result',
+        'show_conversion_success', 'last_export_df', 'export_log',
+        'error_log', 'export_ready', 'process_time_display',
+        'export_done', 'run_export_triggered'
+    ]:
         if key in st.session_state:
             del st.session_state[key]
     st.rerun()
+
 
 # --- Step 1: Input SKUs and Dropbox Links ---
 st.markdown("---")
@@ -120,14 +126,42 @@ if 'sku_input' not in st.session_state:
 if 'link_input' not in st.session_state:
     st.session_state['link_input'] = ""
 
-sku_text = st.text_area("📋 Paste SKUs (one per line):", height=200, key="sku_input")
-link_text = st.text_area("🔗 Paste Dropbox shared links (one per line, in the same order):", height=200, key="link_input")
+st.markdown("**📋 Paste SKU and Dropbox Link (tab-separated, one pair per line):**")
+st.markdown("*Tip: Copy both columns (SKU + Dropbox Link) directly from Excel or Google Sheets and paste them below. No need to manually add tabs!*")
 
-sku_list = [line.strip() for line in sku_text.strip().splitlines() if line.strip()]
-link_list = [line.strip() for line in link_text.strip().splitlines() if line.strip()]
+
+if 'combined_input' not in st.session_state:
+    st.session_state['combined_input'] = ""
+
+st.text_area(label="", height=300, key="combined_input")
+combined_input = st.session_state["combined_input"]
+
+sku_list, link_list = [], []
+for i, line in enumerate(combined_input.strip().splitlines()):
+    parts = line.strip().split("\t")
+    if len(parts) != 2:
+        st.warning(f"⚠️ Line {i+1} is not properly formatted: '{line}'")
+        continue
+    sku, link = parts
+    sku_list.append(sku.strip())
+    link_list.append(link.strip())
+
+
 
 if len(sku_list) != len(link_list):
     st.warning(f"⚠️ You have {len(sku_list)} SKUs and {len(link_list)} links. These must match.")
+
+# Validate each Dropbox link
+invalid_links = []
+for link in link_list:
+    if not re.match(r"^https://www\.dropbox\.com/scl/fo/", link):
+        invalid_links.append(link)
+
+if invalid_links:
+    st.error("❌ The following links are invalid shared Dropbox folder links:")
+    for bad_link in invalid_links:
+        st.code(bad_link)
+    st.stop()
     st.stop()
 
 # --- Convert to Folder Paths ---
@@ -137,31 +171,11 @@ if 'converted_data' not in st.session_state:
 if 'show_conversion_success' not in st.session_state:
     st.session_state.show_conversion_success = False
 
-if st.button("Convert to Folder Paths"):
-    converted = []
-    progress = st.progress(0)
-    status = st.empty()
-    for idx, link in enumerate(link_list):
-        try:
-            meta = dbx.sharing_get_shared_link_metadata(link)
-            if isinstance(meta, dropbox.sharing.FolderLinkMetadata):
-                path = meta.path_lower
-                display = dbx.files_get_metadata(path).path_display
-                converted.append(display)
-        except Exception as e:
-            st.error(f"Error processing link: {link} — {e}")
-        progress.progress((idx + 1) / len(link_list))
-        status.info(f"Processing link {idx + 1} of {len(link_list)}")
-    st.session_state.converted_data = converted
-    st.session_state.show_conversion_success = bool(converted)
-    progress.empty()
-    status.empty()
 
-if st.session_state.get("show_conversion_success", False):
-    st.success("✅ Dropbox links have been successfully converted to folder paths.")
+
+
 
 # --- Step 2: Generate Image Links ---
-st.markdown("---")
 st.subheader("2. Generate Image Links by SKU + Folder Path")
 
 def natural_sort_key(file_name):
@@ -201,33 +215,57 @@ def list_files_recursive(folder, error_log):
     return links, file_count
 
 
+
+
+# Create placeholders and controls
 cols = st.columns([2, 3])
-
 with cols[0]:
-    run_export = st.button("Generate and Export Image Links")
-
+    if st.button("Process & Export All"):
+        st.session_state['run_export_triggered'] = True
+        st.session_state['export_done'] = False
+        st.session_state['processing_in_progress'] = True  # ✅ NEW LINE
+    
+        # --- Combined Folder Path Conversion ---
+        converted = []
+        progress = st.progress(0)
+        status = st.empty()
+        for idx, link in enumerate(link_list):
+            try:
+                meta = dbx.sharing_get_shared_link_metadata(link)
+                if isinstance(meta, dropbox.sharing.FolderLinkMetadata):
+                    path = meta.path_lower
+                    display = dbx.files_get_metadata(path).path_display
+                    converted.append(display)
+            except Exception as e:
+                st.error(f"Error processing link: {link} — {e}")
+            progress.progress((idx + 1) / len(link_list))
+            status.info(f"Converting link {idx + 1} of {len(link_list)}")
+        st.session_state.converted_data = converted
+        st.session_state.show_conversion_success = bool(converted)
+        
+        
+        progress.empty()
+        status.empty()
+    
+        if not converted:
+            st.error("No valid folder paths could be extracted. Please check your links.")
+            st.stop()
 with cols[1]:
-    if st.session_state.get("process_time_display"):
-        st.markdown(
-            f"""
-            <div style="
-                background-color: #eafbea;
-                border-left: 4px solid #34a853;
-                padding: 8px 12px;
-                font-size: 14px;
-                font-weight: bold;
-                color: #1a1a1a;
-                border-radius: 4px;
-                display: inline-block;">
-                ✅ {{st.session_state['process_time_display']}}
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+    timer_placeholder = st.empty()
 
-if run_export:
+# Only run export process if triggered and not already completed
+
+# Display conversion success message if applicable
+if st.session_state.get("show_conversion_success"):
+    st.success('✅ Dropbox links have been successfully converted to folder paths.')
+
+if st.session_state.get('run_export_triggered') and not st.session_state.get('export_done'):
+    st.session_state['run_export_triggered'] = False  # Reset trigger
+    st.session_state['export_done'] = True  # Mark as completed
+    st.session_state['processing_in_progress'] = False  # ✅ NEW LINE
 
     result = []
+    total_images = 0
     export_log = []
     error_log = []
     folders = st.session_state.get("converted_data", [])
@@ -251,6 +289,7 @@ if run_export:
 
         image_links, count = list_files_recursive(folder, error_log)
         if image_links:
+            total_images += len(image_links)
             result.append([sku, " ; ".join(image_links)])
             export_log.append(f"<div style='color: green;'>✅ <strong>{sku}</strong> — {count} images found.</div>")
         else:
@@ -264,23 +303,55 @@ if run_export:
         st.session_state["export_log"] = export_log
     if result:
         df = pd.DataFrame(result, columns=["Variant SKU", "Image Src"])
+        # Replace www.dropbox.com with dl.dropboxusercontent.com in all links
+        df["Image Src"] = df["Image Src"].apply(
+            lambda x: " ; ".join([
+                link.replace("https://www.dropbox.com", "https://dl.dropboxusercontent.com")
+                for link in x.split(" ; ")
+            ])
+        )
         df["Image Command"] = "REPLACE"
         st.session_state["last_export_df"] = df
         st.session_state["export_ready"] = True
-        total_time = time.time() - start_time
-        minutes = int(total_time // 60)
-        seconds = int(total_time % 60)
-        st.session_state['process_time_display'] = f"Process completed in {minutes} minutes {seconds} seconds."
+    total_time = time.time() - start_time
+    minutes = int(total_time // 60)
+    seconds = int(total_time % 60)
+
+    st.session_state["process_time_display"] = (
+        f"✅ Process completed in {minutes} minutes {seconds} seconds — "
+        f"{total_images} images generated from {len(folders)} SKUs."
+    )
+
+    
 
 
 # Display log and download section after export (or persisted via session)
-if st.session_state.get("export_ready", False):
+
+
+if st.session_state.get("export_ready", False) and not st.session_state.get("processing_in_progress", False):
+    
+    # Checkbox to filter only error SKUs
+    show_errors_only = st.checkbox("Show only SKUs with errors", value=False)
+
     if "export_log" in st.session_state:
-        html_summary = "".join(st.session_state["export_log"])
+        logs = st.session_state["export_log"]
+        if show_errors_only:
+            logs = [log for log in logs if "orange" in log or "Failed" in log]
+        html_summary = "".join(logs)
         st.markdown(
             f"<div style='max-height: 400px; overflow-y: auto; padding: 10px; border: 1px solid #ddd; background: #f9f9f9;'>{html_summary}</div>",
             unsafe_allow_html=True
         )
+
+    # ✅ Move process time message display here:
+    if st.session_state.get("process_time_display"):
+        st.markdown(
+            f"""<div style="background-color: #f3e8ff; border-left: 4px solid #a855f7; padding: 8px 12px; font-size: 16px; font-weight: bold; color: #1a1a1a; border-radius: 4px; display: inline-block; margin-top: 30px;">
+            {st.session_state["process_time_display"]}
+            </div>""",
+            unsafe_allow_html=True
+        )
+
 
     if "last_export_df" in st.session_state:
         df = st.session_state["last_export_df"]
@@ -299,4 +370,3 @@ if st.session_state.get("export_ready", False):
             for err in st.session_state["error_log"]:
                 st.error(err)
 # --- Version Display in Sidebar ---
-
